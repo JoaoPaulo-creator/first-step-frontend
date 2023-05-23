@@ -5,11 +5,11 @@ import { AddToCart as AddToCartButton } from "@/components/buttons/AddToCart";
 export default function Home() {
   /* estudando o layout em colunas */
 
-  /* 
+  /*
   Essas classes definem quantas colunas esse layout terá, assim como esse layout se comportará quando a tela
   estiver menor
   grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center align-middle
-  
+
   */
 
   const products = [
@@ -137,7 +137,7 @@ export default function Home() {
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <div key={product.id} className="group-relative">
-              <ProductImage image={product.imageSrc} alt={product.imageAlt} />
+              <ProductImage id={product.id} image={product.imageSrc} alt={product.imageAlt} />
 
               <ProductInfo
                 name={product.name}
