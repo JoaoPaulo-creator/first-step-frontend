@@ -133,6 +133,8 @@ export default function Home() {
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">
           Usuarios tambem compraram
         </h2>
+        <a href="/users/list" className="text-gray-900 bg-slate-200">USERS</a>
+        <a href="/users/git" className="text-gray-900 bg-slate-200">GIT</a>
 
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (

@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, FormEvent, SetStateAction, use, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 
 export default function Price() {
 
