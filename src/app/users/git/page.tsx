@@ -12,10 +12,6 @@ export default async function GitRepos() {
   const response = await fetch('http://localhost:3333/git')
   const data: RepoProps[] = await response.json()
 
-
-
-
-
   return (
     <div>
       {data.length !== 0 ? data.map((repo: RepoProps) => (
