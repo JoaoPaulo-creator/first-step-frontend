@@ -40,6 +40,10 @@ export default function NewContact() {
       });
   };
 
+  function handleRedirect() {
+    // redirecionando para a tela de lista de usuarios depois do submit
+    window.location.href = '/users/list';
+  };
 
   return (
     <>
@@ -80,7 +84,7 @@ export default function NewContact() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit" className="rounded-lg bg-blue-500 py-2 px-4 text-gray-100 mt-4">Submit</button>
+        <button type="submit" onClick={handleRedirect} className="rounded-lg bg-blue-500 py-2 px-4 text-gray-100 mt-4">Submit</button>
       </form>
     </>
   );
