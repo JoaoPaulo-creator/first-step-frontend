@@ -1,20 +1,19 @@
 'use client'
 
-import { useState } from "react"
+import { use, useState } from "react"
 
 export default function NewContact() {
+
   const [formData, setFormData] = useState({
     name: '',
     age: '',
-    salary: ''
+    email: ''
   });
 
   function handleChange(e: any) {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-      [e.target.age]: e.target.value,
-      [e.target.salary]: e.target.value,
     });
   };
 
@@ -23,66 +22,66 @@ export default function NewContact() {
     console.log(formData);
 
 
-    // fetch('https://dummy.restapiexample.com/api/v1/create', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(formData)
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
+    fetch('http://localhost:3333/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(response => response.json())
+      .then(data => {
 
-    //     console.log(data);
-    //   })
-    //   .catch(error => {
+        console.log(data);
+      })
+      .catch(error => {
 
-    //     console.error(error);
-    //   });
+        console.error(error);
+      });
   };
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Name:</label>
-        {/* line clamp serve para quebar a linha */}
-        <input className="border rounded-sm line-clamp-2 px-1"
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          maxLength={20}
-        />
-      </div>
-      <div>
-        <label htmlFor="age">Age:</label>
-        <input className="border rounded-sm line-clamp-2 px-1"
-          type="age"
-          id="age"
-          name="age"
-          value={formData.age}
-          onChange={handleChange}
-          maxLength={3}
-          minLength={1}
-        />
-      </div>
-      <div>
-        <label htmlFor="salary">Salary:</label>
-        <input
-          className="border rounded-sm line-clamp-2 px-1"
-          type="salary"
-          id="salary"
-          name="salary"
-          value={formData.salary}
-          onChange={handleChange}
-          maxLength={10}
-          minLength={1}
-        />
-      </div>
-      <button type="submit" className="rounded-lg bg-blue-500 py-2 px-4 text-gray-100 mt-4">Submit</button>
-    </form>
+    <>
+      <a href="/users/list" className="text-lg">Voltar</a>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Name:</label>
+          {/* line clamp serve para quebar a linha */}
+          <input className="border rounded-sm line-clamp-2 px-1"
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            maxLength={20}
+          />
+        </div>
+        <div>
+          <label htmlFor="age">Age:</label>
+          <input className="border rounded-sm line-clamp-2 px-1"
+            type="age"
+            id="age"
+            name="age"
+            value={formData.age}
+            onChange={handleChange}
+            maxLength={3}
+            minLength={1}
+          />
+        </div>
+        <div>
+          <label htmlFor="salary">Email:</label>
+          <input
+            className="border rounded-sm line-clamp-2 px-1"
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" className="rounded-lg bg-blue-500 py-2 px-4 text-gray-100 mt-4">Submit</button>
+      </form>
+    </>
   );
-
 }
