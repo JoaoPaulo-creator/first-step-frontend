@@ -1,5 +1,5 @@
 'use client'
-import { useFetch } from "@/hooks/use-fetch"
+import { useEffect, useState } from "react"
 
 export interface UserProps {
   id: string
@@ -11,7 +11,25 @@ export interface UserProps {
 
 export default function UsersList() {
 
-  const [loading, data] = useFetch('http://localhost:3333/users')
+  //const [loading, data] = useFetch('http://localhost:3333/users')
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<UserProps[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch('http://localhost:3333/users');
+      const responseData: UserProps[] = await response.json();
+
+      setLoading(false)
+      setData(responseData)
+    })()
+  }, []);
+
+
+
+
+
+
 
   if (loading) {
     return (
@@ -19,6 +37,25 @@ export default function UsersList() {
         <div className="text-center">Loading...</div>
       </div>
     )
+  }
+
+  async function handleDelete(id: string) {
+    await fetch(`http://localhost:3333/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    /*
+
+    Aqui eu consigo filtrar todos os usuarios que não foram deletados
+    É realizado uma filtragem em todos os items que estão sendo renderizados
+
+
+    Se os id's que estão sendo filtrados não forem iguais ao id do usuario
+
+    */
+    setData(prevData => prevData.filter((data: { id: string }) => data.id !== id))
   }
 
 
@@ -29,6 +66,14 @@ export default function UsersList() {
       <div>
         {Array.isArray(data) && data.length !== 0 ? data.map((user) => (
           <div key={user.id} className="mt-4 bg-gray-100 p-4" >
+
+            <div className="flex text-right justify-end">
+
+              <a href={`/users/${user.id}`} className="mr-4">Detalhes</a>
+              <button className="rounded bg-slate-700 text-gray-300 p-2" onClick={() => handleDelete(user.id)}>Apagar contato</button>
+
+            </div>
+
             <p>Nome: {user.name}</p>
             <p>Idade: {user.age}</p>
             <p>E-mail: {user.email}</p>
