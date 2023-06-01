@@ -1,7 +1,7 @@
 'use client'
-import { useEffect, useState } from "react"
+import { useFetch } from "@/hooks/use-fetch"
 
-interface UserProps {
+export interface UserProps {
   id: string
   name: string
   age: number
@@ -11,20 +11,15 @@ interface UserProps {
 
 export default function UsersList() {
 
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<UserProps[]>([]);
+  const [loading, data] = useFetch('http://localhost:3333/users')
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  async function fetchData() {
-    const response = await fetch('http://localhost:3333/users');
-    const data = await response.json();
-
-    setData(data);
-    setLoading(false)
-  };
+  if (loading) {
+    return (
+      <div className="flex items-midle justify-center h-screen text-lg">
+        <div className="text-center">Loading...</div>
+      </div>
+    )
+  }
 
 
   return (
@@ -39,7 +34,7 @@ export default function UsersList() {
             <p>E-mail: {user.email}</p>
           </div>
         ))
-          : <p>Nenhum usuário encontrado</p>}
+          : <p className="flex items-center justify-center">Nenhum usuário encontrado</p>}
       </div>
     </div >
   )
