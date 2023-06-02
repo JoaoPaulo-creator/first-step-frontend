@@ -69,7 +69,7 @@ export default function UsersList() {
 
             <div className="flex text-right justify-end">
 
-              <a href={`/users/${user.id}`} className="mr-4">Detalhes</a>
+              <a href={`/users/details/${user.id}`} className="mr-4">Detalhes</a>
               <button className="rounded bg-slate-700 text-gray-300 p-2" onClick={() => handleDelete(user.id)}>Apagar contato</button>
 
             </div>
