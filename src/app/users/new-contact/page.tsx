@@ -1,49 +1,40 @@
 'use client'
 
-import { use, useState } from "react"
+import { useState } from "react"
 
 export default function NewContact() {
 
-  const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    email: ''
-  });
-
-  function handleChange(e: any) {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [age, setAge] = useState<string>('')
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    console.log(formData);
 
+    const user = {
+      name: name,
+      email: email,
+      age: parseInt(age!),
+    }
 
+    console.log(user)
     fetch('http://localhost:3333/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(user)
     })
       .then(response => response.json())
       .then(data => {
-
-        console.log(data);
-      })
-      .catch(error => {
-
-        console.error(error);
-      });
+        // gambiarra temporaria
+        const erroMessage = 'User already exists'
+        if (data.error !== erroMessage) {
+          window.location.href = '/users/list'
+        }
+      }).catch(error => console.log(error))
   };
 
-  function handleRedirect() {
-    // redirecionando para a tela de lista de usuarios depois do submit
-    window.location.href = '/users/list';
-  };
 
   return (
     <>
@@ -56,21 +47,10 @@ export default function NewContact() {
             type="text"
             id="name"
             name="name"
-            value={formData.name}
-            onChange={handleChange}
+            value={name}
+            onChange={(event) => setName(event.target.value)}
             maxLength={20}
-          />
-        </div>
-        <div>
-          <label htmlFor="age">Age:</label>
-          <input className="border rounded-sm line-clamp-2 px-1"
-            type="age"
-            id="age"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            maxLength={3}
-            minLength={1}
+            placeholder="Digite seu nome"
           />
         </div>
         <div>
@@ -80,11 +60,25 @@ export default function NewContact() {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="Digite seu email"
           />
         </div>
-        <button type="submit" onClick={handleRedirect} className="rounded-lg bg-blue-500 py-2 px-4 text-gray-100 mt-4">Submit</button>
+        <div>
+          <label htmlFor="age">Age:</label>
+          <input className="border rounded-sm line-clamp-2 px-1"
+            type="age"
+            id="age"
+            name="age"
+            value={age}
+            onChange={(event) => setAge(event.target.value)}
+            maxLength={3}
+            minLength={1}
+            placeholder="Digite sua idade"
+          />
+        </div>
+        <button type="submit" className="rounded-lg bg-blue-500 py-2 px-4 text-gray-100 mt-4">Submit</button>
       </form>
     </>
   );

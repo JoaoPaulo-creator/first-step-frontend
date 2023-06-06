@@ -25,12 +25,6 @@ export default function UsersList() {
     })()
   }, []);
 
-
-
-
-
-
-
   if (loading) {
     return (
       <div className="flex items-midle justify-center h-screen text-lg">
