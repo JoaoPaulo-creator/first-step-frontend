@@ -135,6 +135,7 @@ export default function Home() {
         </h2>
         <a href="/users/list" className="text-gray-900 bg-slate-200">USERS</a> <br />
         <a href="/users/teste" className="text-gray-900 bg-slate-200">TESTE</a> <br />
+        <a href="/checkbox" className="text-gray-900 bg-slate-200">Checkbox ou Switch</a> <br />
         <a href="/users/git" className="text-gray-900 bg-slate-200">GIT</a>
 
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-4 xl:gap-x-8">
